@@ -1,34 +1,49 @@
-class Parrot:
-    def fly(self):
-        print("parrot can fly")
-
-    def swim(self):
-        print("parrot can't swim")
+from turtle import *
+from freegames import square, vector
 
 
-class Penguin:
+p1xy =vector(-100,0)
+p1aim=vector(4,0)
+p1body=set()
 
-    def fly(self):
-        print("penguin can't fly")
+p2xy=vector(100,0)
+p2aim=vector(-4,0)
+p2body=set()
 
-    def swim(self):
-        print("penguin can swim")
+def inside(head):
+    return -200 < head.x <200 and -200 <head.y<200
 
+def draw():
+    p1xy.move(p2aim)
+    p1head=p1xy.copy()
 
-def flingTest(obj):  # edu tha common inter face edha vachu enna panna poro
-    obj.fly()
+    p2xy.move(p1aim)
+    p2head=p2xy.copy()
 
+    if not inside(p1head) or p1head in p2body:
+        print("player blue wins!")
+        return
 
-def swimTest(obj):
-    obj.swim()
+    if not inside(p2head) or p2head in p1body:
+        print("player red wins!")
+        return
 
+    p1body.add(p1head)
+    p2body.add(p2head)
 
-parr = Parrot()
+    square(p1xy.x, p1xy.y, 3, 'red')
+    square(p2xy.x, p2xy.y, 3, "blue")
+    update()
+    ontimer(draw, 50)
 
-pen = Penguin()
+setup (420,420,370,0)
+hideturtle()
+tracer(False)
+listen()
 
-flingTest(parr)
-flingTest(pen)
-
-swimTest(parr)
-swimTest(pen)
+onkey(lambda: p1aim.rotate(90), 'a')
+onkey(lambda: p1aim.rotate(-90), 'd')
+onkey(lambda :p2aim.rotate(90), 'j')
+onkey(lambda :p2aim.rotate(-90), 'l')
+draw()
+done()
