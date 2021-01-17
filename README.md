@@ -1,3 +1,4 @@
 # Python
-Pyton basic source codes with programs  
+Pyton basic source codes games
+
 
